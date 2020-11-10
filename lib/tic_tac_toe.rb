@@ -37,10 +37,10 @@ class TicTacToe
       end
 
       def valid_move?(index)
-        if index != 0..8 && @board[index] != " "
-            false
-        else 
+        if index.between?(0,8) && @board[index] == " "
             true
+        else 
+            false
         end
       end
 
@@ -65,7 +65,7 @@ class TicTacToe
 
       def turn
         puts "Please select a number 1-9."
-        input = gets
+        input = gets.strip
         index = input_to_index(input)
 
         if valid_move?(index)
@@ -75,8 +75,6 @@ class TicTacToe
             turn
         end
       end
-
-      # If the indices of of all WIN_COMBINATIONS do need equal either X or O then Draw
 
       def won?
         WIN_COMBINATIONS.find do |sub_array|
@@ -100,7 +98,6 @@ class TicTacToe
         winner = WIN_COMBINATIONS.find do |sub_array|
             @board[sub_array[0]] ==  @board[sub_array[1]] &&  @board[sub_array[2]] == @board[sub_array[0]]
         end
-        # binding.pry
         if @board[winner[0]] == "X"
             "X"
         elsif @board[winner[0]] == "O"
@@ -110,22 +107,16 @@ class TicTacToe
         end
       end
 
-    def play
-        
-
     
     def play
         until over?
             turn
-            if over?
-                if won?
-                    "Congratulations #{winner}!"
-                   else
-                    "Cats Game!"
-                end
-            end
+        end    
+        if won?
+        puts "Congratulations #{winner}!"
+        else
+        puts "Cat's Game!"      
         end
     end
 
-    
 end
